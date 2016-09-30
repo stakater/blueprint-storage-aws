@@ -50,7 +50,7 @@ resource "aws_rds_cluster_instance" "aurora-cluster-instance" {
 }
 
 resource "aws_db_subnet_group" "aurora_subnet_group" {
-    name          = "${var.name}-aurora-db=-subnet-group"
+    name          = "${var.name}-aurora-db-subnet-group"
     description   = "Allowed subnets for Aurora DB cluster instances"
     subnet_ids    = ["${split(",",var.subnets)}"]
 
