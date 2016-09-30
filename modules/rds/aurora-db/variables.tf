@@ -13,11 +13,11 @@ variable "aurora_db_name" {
 }
 
 variable "aurora_db_username" {
-  description = "The ID's of the VPC subnets that the RDS cluster instances will be created in"
+  description = "Aurora DB Master Username"
 }
 
 variable "aurora_db_password" {
-  description = "The ID's of the VPC subnets that the RDS cluster instances will be created in"
+  description = "Aurora DB Master Password (Must be atleast 8 characters)"
 }
 
 variable "backup_retention_period" {
