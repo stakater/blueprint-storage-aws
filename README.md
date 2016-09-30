@@ -5,6 +5,7 @@ This *blueprint* contains modules that are used to set up a best practices stora
   - S3
   - RDS
     - Aurora DB
+  - EFS
 
 ## What is a blueprint?
 
