@@ -34,7 +34,7 @@ resource "aws_rds_cluster" "aurora-cluster" {
 resource "aws_rds_cluster_instance" "aurora-cluster-instance" {
     count                 = "${var.cluster_instance_count}"
     identifier            = "${var.name}-aurora-instance-${count.index}"
-    cluster_identifier    = "${aws_rds_cluster.aurora_cluster.id}"
+    cluster_identifier    = "${aws_rds_cluster.aurora-cluster.id}"
     instance_class        = "${var.cluster_instance_class}"
     db_subnet_group_name  = "${aws_db_subnet_group.aurora_subnet_group.name}"
     publicly_accessible   = "${var.publicly_accessible}"
