@@ -1,6 +1,6 @@
 # EFS cluster
 resource "aws_efs_file_system" "efs" {
-  reference_name = "${var.name}-efs"
+  creation_token = "${var.name}-efs"
   tags {
     Name = "${var.name}-efs"
   }
