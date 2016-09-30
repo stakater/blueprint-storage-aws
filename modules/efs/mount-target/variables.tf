@@ -9,3 +9,8 @@ variable "subnets" {
 variable "security-groups" {
   description = "Comma-Separated List of security group IDs"
 }
+
+variable "mount-targets-count" {
+  description = "count for subnets list (https://github.com/hashicorp/terraform/issues/3888)"
+  default = "1"
+}
