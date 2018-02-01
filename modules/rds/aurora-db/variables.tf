@@ -85,5 +85,5 @@ variable "skip_final_snapshot" {
 }
 
 variable "engine" {
-  default = "aurora-postgresql"
+  default = "aurora"
 }
