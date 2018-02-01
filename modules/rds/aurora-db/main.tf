@@ -2,7 +2,7 @@
 ## Cluster
 ########################
 resource "aws_rds_cluster" "aurora-cluster" {
-    cluster_identifier            = "${var.name}-aurora-cluster"
+    cluster_identifier            = "${var.name}"
     engine                        = "${var.engine}"
     database_name                 = "${var.aurora_db_name}"
     master_username               = "${var.aurora_db_username}"
