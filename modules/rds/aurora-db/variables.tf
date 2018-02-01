@@ -83,3 +83,7 @@ variable "subnets" {
 variable "skip_final_snapshot" {
   default = false
 }
+
+variable "engine" {
+  default = "aurora-postgresql"
+}
