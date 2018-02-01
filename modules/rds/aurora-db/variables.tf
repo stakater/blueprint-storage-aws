@@ -79,3 +79,11 @@ variable "publicly_accessible" {
 variable "subnets" {
   default = "Comma-Separated List of subnet IDs to be associated with Aurora DB"
 }
+
+variable "skip_final_snapshot" {
+  default = false
+}
+
+variable "engine" {
+  default = "aurora"
+}
