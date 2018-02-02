@@ -42,6 +42,9 @@ resource "aws_rds_cluster_instance" "aurora-cluster-instance" {
     db_subnet_group_name  = "${aws_db_subnet_group.aurora_subnet_group.name}"
     publicly_accessible   = "${var.publicly_accessible}"
 
+    engine                = "${var.engine}"
+    engine_version        = "${var.engine_version}"
+
     tags {
         Name         = "${var.name}-Aurora-DB-Instance-${count.index}"
         ManagedBy    = "stakater"
