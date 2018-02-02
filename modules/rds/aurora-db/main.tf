@@ -4,6 +4,7 @@
 resource "aws_rds_cluster" "aurora-cluster" {
     cluster_identifier            = "${var.name}"
     engine                        = "${var.engine}"
+    engine_version                = "${var.engine_version}"
     database_name                 = "${var.aurora_db_name}"
     master_username               = "${var.aurora_db_username}"
     master_password               = "${var.aurora_db_password}"
