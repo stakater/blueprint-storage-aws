@@ -99,7 +99,7 @@ resource "aws_security_group" "aurora_db_sg" {
     protocol    = -1
     from_port   = 0
     to_port     = 0
-    security_groups = "${var.allowed_security_groups}"
+    security_groups = ["${split(",",var.allowed_security_groups)}"]
   }
 
   egress {

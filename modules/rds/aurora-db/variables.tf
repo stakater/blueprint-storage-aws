@@ -39,9 +39,8 @@ variable "vpc_cidr" {
 }
 
 variable "allowed_security_groups" {
-  description = "List of security groups to whitelist"
-  type = "list"
-  default = []
+  description = "Comma-Separated List of security groups to whitelist"
+  default = ""
 }
 
 variable "aurora_db_name" {
@@ -83,7 +82,7 @@ variable "publicly_accessible" {
 }
 
 variable "subnets" {
-  default = "Comma-Separated List of subnet IDs to be associated with Aurora DB"
+  description = "Comma-Separated List of subnet IDs to be associated with Aurora DB"
 }
 
 variable "skip_final_snapshot" {
