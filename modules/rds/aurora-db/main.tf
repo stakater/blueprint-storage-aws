@@ -66,8 +66,9 @@ resource "aws_db_subnet_group" "aurora_subnet_group" {
         Environment  = "${var.name}"
     }
 }
+
 resource "aws_security_group" "aurora_db" {
-  name   = "aurora_db"
+  name   = "${var.name}-aurora_db"
   vpc_id = "${var.vpc_id}"
   description = "Aurora DB security group"
 
@@ -86,6 +87,6 @@ resource "aws_security_group" "aurora_db" {
   }
 
   tags {
-      Name = "aurora_db"
+      Name = "${var.name}-aurora_db"
   }
 }
