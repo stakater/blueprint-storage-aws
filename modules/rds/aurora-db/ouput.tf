@@ -34,5 +34,9 @@ output "endpoint" {
 
 # To allow user to add custom rules to the security group
 output "security-group-id"{
-  value = "${aws_security_group.aurora_db.id}"
+  value = "${
+    length(var.allowed_security_groups) == 0
+     ? aws_security_group.aurora_db_vpc.id
+     : aws_security_group.aurora_db_sg.id
+  }"
 }

@@ -16,7 +16,7 @@ resource "aws_rds_cluster" "aurora-cluster" {
     final_snapshot_identifier     = "${var.name}-aurora-cluster"
     skip_final_snapshot           = "${var.skip_final_snapshot}"
     vpc_security_group_ids        = [
-        "${aws_security_group.aurora_db.id}"
+        "${aws_security_group.aurora_db_vpc.id}"
     ]
 
     tags {
@@ -62,7 +62,9 @@ resource "aws_db_subnet_group" "aurora_subnet_group" {
         Environment  = "${var.name}"
     }
 }
-resource "aws_security_group" "aurora_db" {
+resource "aws_security_group" "aurora_db_vpc" {
+  count = "${length(var.allowed_security_groups) == 0}"
+
   name   = "aurora_db"
   vpc_id = "${var.vpc_id}"
   description = "Aurora DB security group"
@@ -82,6 +84,32 @@ resource "aws_security_group" "aurora_db" {
   }
 
   tags {
-      Name = "aurora_db"
+    Name = "aurora_db"
+  }
+}
+
+resource "aws_security_group" "aurora_db_sg" {
+  count = "${length(var.allowed_security_groups) != 0}"
+
+  name   = "aurora_db"
+  vpc_id = "${var.vpc_id}"
+  description = "Aurora DB security group"
+
+  ingress {
+    protocol    = -1
+    from_port   = 0
+    to_port     = 0
+    security_groups = "${var.allowed_security_groups}"
+  }
+
+  egress {
+    protocol    = -1
+    from_port   = 0
+    to_port     = 0
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "aurora_db"
   }
 }

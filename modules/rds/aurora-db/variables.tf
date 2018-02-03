@@ -38,6 +38,12 @@ variable "vpc_cidr" {
   description = "The CIDR of the VPC that the RDS cluster will be created in"
 }
 
+variable "allowed_security_groups" {
+  description = "List of security groups to whitelist"
+  type = "list"
+  default = []
+}
+
 variable "aurora_db_name" {
   description = "Name of the Database"
 }
