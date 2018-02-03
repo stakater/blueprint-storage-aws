@@ -69,7 +69,7 @@ resource "aws_db_subnet_group" "aurora_subnet_group" {
 resource "aws_security_group" "aurora_db_vpc" {
   count = "${length(var.allowed_security_groups) == 0}"
 
-  name   = "aurora_db"
+  name   = "aurora_db-${var.name}"
   vpc_id = "${var.vpc_id}"
   description = "Aurora DB security group"
 
@@ -95,7 +95,7 @@ resource "aws_security_group" "aurora_db_vpc" {
 resource "aws_security_group" "aurora_db_sg" {
   count = "${length(var.allowed_security_groups) != 0}"
 
-  name   = "aurora_db"
+  name   = "aurora_db-${var.name}"
   vpc_id = "${var.vpc_id}"
   description = "Aurora DB security group"
 
