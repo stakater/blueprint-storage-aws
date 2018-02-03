@@ -71,7 +71,7 @@ resource "aws_db_subnet_group" "aurora_subnet_group" {
     }
 }
 resource "aws_security_group" "aurora_db_vpc" {
-  count = "${length(var.allowed_security_groups) == 0}"
+  count = "${length(var.allowed_security_groups) == 0 ? 1 : 0}"
 
   name   = "aurora_db-${var.name}"
   vpc_id = "${var.vpc_id}"
@@ -97,7 +97,7 @@ resource "aws_security_group" "aurora_db_vpc" {
 }
 
 resource "aws_security_group" "aurora_db_sg" {
-  count = "${length(var.allowed_security_groups) != 0}"
+  count = "${length(var.allowed_security_groups) != 0 ? 1 : 0}"
 
   name   = "aurora_db-${var.name}"
   vpc_id = "${var.vpc_id}"
