@@ -4,6 +4,7 @@
 resource "aws_rds_cluster" "aurora-cluster" {
     cluster_identifier            = "${var.name}"
     engine                        = "${var.engine}"
+    engine_version                = "${var.engine_version}"
     database_name                 = "${var.aurora_db_name}"
     master_username               = "${var.aurora_db_username}"
     master_password               = "${var.aurora_db_password}"
@@ -16,7 +17,11 @@ resource "aws_rds_cluster" "aurora-cluster" {
     final_snapshot_identifier     = "${var.name}-aurora-cluster"
     skip_final_snapshot           = "${var.skip_final_snapshot}"
     vpc_security_group_ids        = [
-        "${aws_security_group.aurora_db.id}"
+        "${
+    length(var.allowed_security_groups) == 0
+     ? aws_security_group.aurora_db_vpc.id
+     : aws_security_group.aurora_db_sg.id
+  }"
     ]
 
     tags {
@@ -41,6 +46,9 @@ resource "aws_rds_cluster_instance" "aurora-cluster-instance" {
     db_subnet_group_name  = "${aws_db_subnet_group.aurora_subnet_group.name}"
     publicly_accessible   = "${var.publicly_accessible}"
 
+    engine                = "${var.engine}"
+    engine_version        = "${var.engine_version}"
+
     tags {
         Name         = "${var.name}-Aurora-DB-Instance-${count.index}"
         ManagedBy    = "stakater"
@@ -62,8 +70,10 @@ resource "aws_db_subnet_group" "aurora_subnet_group" {
         Environment  = "${var.name}"
     }
 }
-resource "aws_security_group" "aurora_db" {
-  name   = "aurora_db"
+resource "aws_security_group" "aurora_db_vpc" {
+  count = "${length(var.allowed_security_groups) == 0}"
+
+  name   = "aurora_db-${var.name}"
   vpc_id = "${var.vpc_id}"
   description = "Aurora DB security group"
 
@@ -82,6 +92,32 @@ resource "aws_security_group" "aurora_db" {
   }
 
   tags {
-      Name = "aurora_db"
+    Name = "aurora_db"
+  }
+}
+
+resource "aws_security_group" "aurora_db_sg" {
+  count = "${length(var.allowed_security_groups) != 0}"
+
+  name   = "aurora_db-${var.name}"
+  vpc_id = "${var.vpc_id}"
+  description = "Aurora DB security group"
+
+  ingress {
+    protocol    = -1
+    from_port   = 0
+    to_port     = 0
+    security_groups = ["${split(",",var.allowed_security_groups)}"]
+  }
+
+  egress {
+    protocol    = -1
+    from_port   = 0
+    to_port     = 0
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "aurora_db"
   }
 }

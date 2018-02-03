@@ -38,6 +38,11 @@ variable "vpc_cidr" {
   description = "The CIDR of the VPC that the RDS cluster will be created in"
 }
 
+variable "allowed_security_groups" {
+  description = "Comma-Separated List of security groups to whitelist"
+  default = ""
+}
+
 variable "aurora_db_name" {
   description = "Name of the Database"
 }
@@ -77,13 +82,13 @@ variable "publicly_accessible" {
 }
 
 variable "subnets" {
-  default = "Comma-Separated List of subnet IDs to be associated with Aurora DB"
+  description = "Comma-Separated List of subnet IDs to be associated with Aurora DB"
 }
 
 variable "skip_final_snapshot" {
   default = false
 }
 
-variable "engine" {
-  default = "aurora"
-}
+variable "engine" { }
+
+variable "engine_version" { }
