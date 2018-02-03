@@ -17,7 +17,7 @@ resource "aws_rds_cluster" "aurora-cluster" {
     final_snapshot_identifier     = "${var.name}-aurora-cluster"
     skip_final_snapshot           = "${var.skip_final_snapshot}"
     vpc_security_group_ids        = [
-        "${aws_security_group.aurora_db.id}"
+        "${var.vpc_rds_security_group_ids}"
     ]
 
     tags {
@@ -67,26 +67,3 @@ resource "aws_db_subnet_group" "aurora_subnet_group" {
     }
 }
 
-resource "aws_security_group" "aurora_db" {
-  name   = "${var.name}-aurora-db"
-  vpc_id = "${var.vpc_id}"
-  description = "${var.name} Aurora DB security group"
-
-  ingress {
-    protocol    = -1
-    from_port   = 0
-    to_port     = 0
-    cidr_blocks = ["${var.vpc_cidr}"]
-  }
-
-  egress {
-    protocol    = -1
-    from_port   = 0
-    to_port     = 0
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags {
-      Name = "${var.name}-aurora-db"
-  }
-}
