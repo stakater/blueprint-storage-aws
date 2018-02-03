@@ -84,10 +84,6 @@ variable "skip_final_snapshot" {
   default = false
 }
 
-variable "vpc_rds_security_group_ids" {
-    description = "The ID of the security group that should be used for the RDS cluster instances"
-}
-
 variable "engine" { }
 
 variable "engine_version" { }
