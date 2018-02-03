@@ -17,7 +17,7 @@ resource "aws_rds_cluster" "aurora-cluster" {
     final_snapshot_identifier     = "${var.name}-aurora-cluster"
     skip_final_snapshot           = "${var.skip_final_snapshot}"
     vpc_security_group_ids        = [
-        "${var.vpc_rds_security_group_id}"
+        "${var.vpc_rds_security_group_ids}"
     ]
 
     tags {
