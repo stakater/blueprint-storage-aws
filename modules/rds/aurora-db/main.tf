@@ -68,9 +68,9 @@ resource "aws_db_subnet_group" "aurora_subnet_group" {
 }
 
 resource "aws_security_group" "aurora_db" {
-  name   = "${var.name}-aurora_db"
+  name   = "${var.name}-aurora-db"
   vpc_id = "${var.vpc_id}"
-  description = "Aurora DB security group"
+  description = "${var.name} Aurora DB security group"
 
   ingress {
     protocol    = -1
@@ -87,6 +87,6 @@ resource "aws_security_group" "aurora_db" {
   }
 
   tags {
-      Name = "${var.name}-aurora_db"
+      Name = "${var.name}-aurora-db"
   }
 }
