@@ -110,8 +110,6 @@ variable "storage_encrypted" {
   default = false
 }
 
-variable "subnet_group" {}
-
 variable "parameter_group" {
   default = "default.postgres9.4"
 }
