@@ -31,6 +31,11 @@ resource "aws_db_instance" "postgresql" {
   }
 }
 
+resource "aws_db_subnet_group" "postgresql_db_subnet_group" {
+  name   = "${var.parameter_group}"
+  subnet_ids  = ["${var.subnet_ids}"]
+}
+
 ########################
 ## Security group resources
 ########################

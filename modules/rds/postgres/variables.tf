@@ -110,6 +110,8 @@ variable "storage_encrypted" {
   default = false
 }
 
+variable "subnet_ids" {}
+
 variable "db_subnet_group" { }
 
 variable "parameter_group" {
