@@ -22,6 +22,7 @@ resource "aws_db_instance" "postgresql" {
   multi_az                   = "${var.multi_availability_zone}"
   port                       = "${var.database_port}"
   vpc_security_group_ids     = ["${element(concat(aws_security_group.postgresql_vpc.*.id, aws_security_group.postgresql_sg.*.id), 0)}"]
+  db_subnet_group_name       = "${var.db_subnet_group}"
   parameter_group_name       = "${var.parameter_group}"
   storage_encrypted          = "${var.storage_encrypted}"
 
