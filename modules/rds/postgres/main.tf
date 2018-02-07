@@ -36,6 +36,7 @@ resource "aws_db_instance" "postgresql" {
 ########################
 resource "aws_security_group" "postgresql_vpc" {
   count = "${length(var.allowed_security_groups) == 0 ? 1 : 0}"
+  name = "${var.name}-postgres"
 
   vpc_id = "${var.vpc_id}"
 
@@ -60,6 +61,7 @@ resource "aws_security_group" "postgresql_vpc" {
 
 resource "aws_security_group" "postgresql_sg" {
   count = "${length(var.allowed_security_groups) != 0 ? 1 : 0}"
+  name = "${var.name}-postgres"
 
   vpc_id = "${var.vpc_id}"
 
