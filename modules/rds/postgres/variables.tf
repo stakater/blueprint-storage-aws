@@ -111,7 +111,3 @@ variable "storage_encrypted" {
 }
 
 variable "subnet_ids" {}
-
-variable "parameter_group" {
-  default = "default.postgres9.4"
-}

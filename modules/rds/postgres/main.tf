@@ -22,8 +22,8 @@ resource "aws_db_instance" "postgresql" {
   multi_az                   = "${var.multi_availability_zone}"
   port                       = "${var.database_port}"
   vpc_security_group_ids     = ["${element(concat(aws_security_group.postgresql_vpc.*.id, aws_security_group.postgresql_sg.*.id), 0)}"]
-  db_subnet_group_name       = "${var.name}-parameter-group"
-  parameter_group_name       = "${var.parameter_group}"
+  db_subnet_group_name       = "${var.name}-subnet-group"
+  parameter_group_name       = "${var.name}-parameter-group"
   storage_encrypted          = "${var.storage_encrypted}"
 
   tags {
@@ -32,8 +32,13 @@ resource "aws_db_instance" "postgresql" {
 }
 
 resource "aws_db_subnet_group" "postgresql_db_subnet_group" {
-  name   = "${var.name}-parameter-group"
+  name   = "${var.name}-subnet-group"
   subnet_ids  = ["${split(",",var.subnet_ids)}"]
+}
+
+resource "aws_db_parameter_group" "default" {
+  name   = "${var.name}-parameter-group"
+  family = "postgres9.6"
 }
 
 ########################
