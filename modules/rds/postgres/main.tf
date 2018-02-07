@@ -27,9 +27,7 @@ resource "aws_db_instance" "postgresql" {
   storage_encrypted          = "${var.storage_encrypted}"
 
   tags {
-    Name        = "DatabaseServer"
-    StackName     = "${var.stack_name}"
-    Environment = "${var.environment}"
+    Name        = "${var.name}-DatabaseServer"
   }
 }
 
@@ -37,7 +35,7 @@ resource "aws_db_instance" "postgresql" {
 ## Security group resources
 ########################
 resource "aws_security_group" "postgresql_vpc" {
-  count = "${length(var.allowed_security_groups) == 0}"
+  count = "${length(var.allowed_security_groups) == 0 ? 1 : 0}"
 
   vpc_id = "${var.vpc_id}"
 
@@ -56,14 +54,12 @@ resource "aws_security_group" "postgresql_vpc" {
   }
 
   tags {
-    Name        = "sgDatabaseServer"
-    StackName     = "${var.stack_name}"
-    Environment = "${var.environment}"
+    Name        = "${var.name}-sgDatabaseServer"
   }
 }
 
 resource "aws_security_group" "postgresql_sg" {
-  count = "${length(var.allowed_security_groups) != 0}"
+  count = "${length(var.allowed_security_groups) != 0 ? 1 : 0}"
 
   vpc_id = "${var.vpc_id}"
 
@@ -82,8 +78,6 @@ resource "aws_security_group" "postgresql_sg" {
   }
 
   tags {
-    Name        = "sgDatabaseServer"
-    StackName     = "${var.stack_name}"
-    Environment = "${var.environment}"
+    Name        = "${var.name}-sgDatabaseServer"
   }
 }
