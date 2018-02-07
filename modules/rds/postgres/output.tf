@@ -6,7 +6,7 @@ output "endpoint" {
 output "security-group-id"{
   value = "${
     length(var.allowed_security_groups) == 0
-     ? aws_security_group.postgresql_vpc.id
-     : aws_security_group.postgresql_sg.id
+     ? aws_security_group.postgresql_vpc.*.id
+     : aws_security_group.postgresql_sg.*.id
   }"
 }
