@@ -16,12 +16,7 @@ resource "aws_rds_cluster" "aurora-cluster" {
     db_subnet_group_name          = "${aws_db_subnet_group.aurora_subnet_group.name}"
     final_snapshot_identifier     = "${var.name}-aurora-cluster"
     skip_final_snapshot           = "${var.skip_final_snapshot}"
-    vpc_security_group_ids        = [
-        "${
-    length(var.allowed_security_groups) == 0
-     ? aws_security_group.aurora_db_vpc.id
-     : aws_security_group.aurora_db_sg.id
-  }"
+    vpc_security_group_ids        = ["${element(concat(aws_security_group.aurora_db_vpc.*.id, aws_security_group.aurora_db_sg.*.id), 0)}"
     ]
 
     tags {
