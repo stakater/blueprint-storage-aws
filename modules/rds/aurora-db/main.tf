@@ -16,12 +16,7 @@ resource "aws_rds_cluster" "aurora-cluster" {
     db_subnet_group_name          = "${aws_db_subnet_group.aurora_subnet_group.name}"
     final_snapshot_identifier     = "${var.name}-aurora-cluster"
     skip_final_snapshot           = "${var.skip_final_snapshot}"
-    vpc_security_group_ids        = [
-        "${
-    length(var.allowed_security_groups) == 0
-     ? aws_security_group.aurora_db_vpc.id
-     : aws_security_group.aurora_db_sg.id
-  }"
+    vpc_security_group_ids        = ["${element(concat(aws_security_group.aurora_db_vpc.*.id, aws_security_group.aurora_db_sg.*.id), 0)}"
     ]
 
     tags {
@@ -70,12 +65,13 @@ resource "aws_db_subnet_group" "aurora_subnet_group" {
         Environment  = "${var.name}"
     }
 }
+
 resource "aws_security_group" "aurora_db_vpc" {
   count = "${length(var.allowed_security_groups) == 0 ? 1 : 0}"
 
-  name   = "aurora_db-${var.name}"
+  name   = "${var.name}-aurora_db"
   vpc_id = "${var.vpc_id}"
-  description = "Aurora DB security group"
+  description = "${var.name} Aurora DB security group"
 
   ingress {
     protocol    = -1
@@ -92,16 +88,16 @@ resource "aws_security_group" "aurora_db_vpc" {
   }
 
   tags {
-    Name = "aurora_db"
+    Name = "${var.name}-aurora_db"
   }
 }
 
 resource "aws_security_group" "aurora_db_sg" {
   count = "${length(var.allowed_security_groups) != 0 ? 1 : 0}"
 
-  name   = "aurora_db-${var.name}"
+  name   = "${var.name}-aurora_db"
   vpc_id = "${var.vpc_id}"
-  description = "Aurora DB security group"
+  description = "${var.name} Aurora DB security group"
 
   ingress {
     protocol    = -1
@@ -118,6 +114,6 @@ resource "aws_security_group" "aurora_db_sg" {
   }
 
   tags {
-    Name = "aurora_db"
+      Name = "${var.name}-aurora-db"
   }
 }
