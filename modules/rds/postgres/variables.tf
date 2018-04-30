@@ -90,10 +90,6 @@ variable "auto_minor_version_upgrade" {
   default = true
 }
 
-variable "final_snapshot_identifier" {
-  default = "terraform-aws-postgresql-rds-snapshot"
-}
-
 variable "skip_final_snapshot" {
   default = true
 }
