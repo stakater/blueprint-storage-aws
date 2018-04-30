@@ -16,7 +16,7 @@ resource "aws_db_instance" "postgresql" {
   backup_window              = "${var.backup_window}"
   maintenance_window         = "${var.maintenance_window}"
   auto_minor_version_upgrade = "${var.auto_minor_version_upgrade}"
-  final_snapshot_identifier  = "${var.final_snapshot_identifier}"
+  final_snapshot_identifier  = "${var.database_identifier}-${md5(timestamp())}"
   skip_final_snapshot        = "${var.skip_final_snapshot}"
   copy_tags_to_snapshot      = "${var.copy_tags_to_snapshot}"
   multi_az                   = "${var.multi_availability_zone}"
