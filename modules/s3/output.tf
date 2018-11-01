@@ -29,7 +29,7 @@
 ###############################################################################
 
 output "arn" {
-    value = "${var.acl == "private" ? aws_s3_bucket.s3_bucket_private.arn : aws_s3_bucket.s3_bucket_website_hosting.arn}"
+    value = "${split(",", var.acl == "private" ? join(",", aws_s3_bucket.s3_bucket_private.*.arn) : join(",", aws_s3_bucket.s3_bucket_website_hosting.*.arn))}"
 }
 
 output "bucket_name" {
