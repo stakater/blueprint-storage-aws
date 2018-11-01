@@ -28,10 +28,13 @@
 # limitations under the License.
 ###############################################################################
 
-output "arn" {
-    value = "${split(",", var.acl == "private" ? join(",", aws_s3_bucket.s3_bucket_private.*.arn) : join(",", aws_s3_bucket.s3_bucket_website_hosting.*.arn))}"
-}
-
-output "bucket_name" {
-    value = "${var.name}"
+resource "aws_s3_bucket" "s3_bucket_website_hosting" {
+    bucket = "${var.name}"
+    acl = "${var.acl}"
+    policy = "${var.policy}"
+    website = {
+        index_document = "${var.index_document}"
+        error_document = "${var.error_document}"
+        routing_rules = "${var.routing_rules}"
+    }
 }

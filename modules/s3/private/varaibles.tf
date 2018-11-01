@@ -35,19 +35,3 @@ variable "name" {
 variable "acl" {
   default = "private"
 }
-
-variable "policy" {
-  default = ""
-}
-
-variable "index_document" {
-  default = "index.html"
-}
-
-variable "error_document" {
-  default = ""
-}
-
-variable "routing_rules" {
-  default = ""
-}
