@@ -28,24 +28,26 @@
 # limitations under the License.
 ###############################################################################
 
-resource "aws_s3_bucket" "s3_bucket_private" {
-    count = "${var.acl == "private" ? 1 : 0}"
-    bucket = "${var.name}"
-    acl = "${var.acl}"
-    force_destroy = true
-    tags {
-        Name = "${var.name}"
-    }
+variable "name" {
+  default = "Name of the bucket"
 }
 
-resource "aws_s3_bucket" "s3_bucket_website_hosting" {
-    count = "${var.acl == "public-read" ? 1 : 0}"
-    bucket = "${var.name}"
-    acl = "${var.acl}"
-    policy = "${var.policy}"
-    website = {
-        index_document = "${var.index_document}"
-        error_document = "${var.error_document}"
-        routing_rules = "${var.routing_rules}"
-    }
+variable "acl" {
+  default = "public-read"
+}
+
+variable "policy" {
+  default = ""
+}
+
+variable "index_document" {
+  default = "index.html"
+}
+
+variable "error_document" {
+  default = ""
+}
+
+variable "routing_rules" {
+  default = ""
 }
