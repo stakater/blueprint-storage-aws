@@ -51,3 +51,7 @@ variable "error_document" {
 variable "routing_rules" {
   default = ""
 }
+
+variable "redirect_all_requests_to" {
+  default = ""
+}
