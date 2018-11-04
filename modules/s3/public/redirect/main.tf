@@ -28,7 +28,7 @@
 # limitations under the License.
 ###############################################################################
 
-resource "aws_s3_bucket" "s3_bucket_website_hosting" {
+resource "aws_s3_bucket" "s3_bucket_website_redirect" {
     bucket = "${var.name}"
     acl = "${var.acl}"
     policy = "${var.policy}"

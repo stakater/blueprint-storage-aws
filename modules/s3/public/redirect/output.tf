@@ -29,23 +29,23 @@
 ###############################################################################
 
 output "arn" {
-    value = "${aws_s3_bucket.s3_bucket_website_hosting.arn}"
+    value = "${aws_s3_bucket.s3_bucket_website_redirect.arn}"
 }
 
 output "website_domain" {
-    value = "${aws_s3_bucket.s3_bucket_website_hosting.website_domain}"
+    value = "${aws_s3_bucket.s3_bucket_website_redirect.website_domain}"
 }
 
 output "website_endpoint" {
-    value = "${aws_s3_bucket.s3_bucket_website_hosting.website_endpoint}"
+    value = "${aws_s3_bucket.s3_bucket_website_redirect.website_endpoint}"
 }
 
 output "bucket_domain_name" {
-    value = "${aws_s3_bucket.s3_bucket_website_hosting.bucket_domain_name}"
+    value = "${aws_s3_bucket.s3_bucket_website_redirect.bucket_domain_name}"
 }
 
 output "hosted_zone_id" {
-    value = "${aws_s3_bucket.s3_bucket_website_hosting.hosted_zone_id}"
+    value = "${aws_s3_bucket.s3_bucket_website_redirect.hosted_zone_id}"
 }
 
 output "bucket_name" {
