@@ -34,6 +34,5 @@ resource "aws_s3_bucket" "s3_bucket_website_redirect" {
     policy = "${var.policy}"
     website = {
         redirect_all_requests_to = "${var.redirect_all_requests_to}"
-        routing_rules = "${var.routing_rules}"
     }
 }

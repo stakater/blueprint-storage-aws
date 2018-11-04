@@ -39,9 +39,6 @@ variable "acl" {
 variable "policy" {
   default = ""
 }
-variable "routing_rules" {
-  default = ""
-}
 
 variable "redirect_all_requests_to" {
   default = ""
